@@ -37,7 +37,7 @@ function PlayerRow({
       )}
       <div>{player && player.name}</div>
       <div>
-        {player && player.correct !== null && (
+        {player && player.correct !== undefined && (
           <FontAwesomeIcon
             icon={player.correct ? faCheck : faX}
             className={player.correct ? "green" : "red"}

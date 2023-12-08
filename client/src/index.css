@@ -16,9 +16,10 @@
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 0.25em;
-  background-color: var(--primary-color);
+  margin-top: 50px;
+  position: relative;
 }
 
 @media screen and (min-width: 768px) {
@@ -30,7 +31,7 @@
 .row-container {
   display: grid;
   grid-template-columns: 10% 40% 40% 10%;
-  grid-auto-rows: 90px;
+  grid-auto-rows: 70px;
   color: black;
   justify-content: center;
   align-items: center;
@@ -64,6 +65,7 @@
   justify-content: center;
   width: 100%;
   background-color: var(--primary-color);
+  position: relative;
 }
 
 .right-column .button-container {
@@ -80,12 +82,23 @@
   border: none;
   width: 50%;
   justify-self: center;
+  cursor: pointer;
+}
+
+.player-button,
+.reset,
+.skip {
+  border-bottom: 2px solid transparent !important;
+}
+
+.player-button:hover,
+.reset:hover {
+  border-bottom: 2px solid var(--accent-color) !important;
 }
 
 .skip:hover {
   background-color: red;
   color: white;
-  cursor: pointer;
 }
 
 .skip:disabled {
@@ -95,7 +108,7 @@
 }
 
 button:disabled {
-  cursor: not-allowed
+  cursor: not-allowed;
 }
 
 .green {
@@ -106,7 +119,6 @@ button:disabled {
   color: red;
 }
 
-
 .final-score {
   width: 100%;
   display: flex;
@@ -115,4 +127,60 @@ button:disabled {
   font-size: 8rem;
   font-weight: 900;
   color: white;
+  background-color: var(--primary-color);
+}
+
+.player-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-container h1 {
+  width: 100%;
+  text-align: center;
+  color: white;
+  border-top: 3px solid white;
+}
+
+.reset {
+  grid-column: 2 / 3;
+  border: none;
+  padding: 0.5em;
+  width: 50%;
+  justify-self: center;
+  margin: 0.5em;
+  position: absolute;
+  bottom: 1em;
+}
+
+.header {
+  padding: 2em;
+  background-color: #f1f1f1;
+}
+
+.header-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: .25em;
+}
+
+.logo {
+  font-size: 2em;
+  margin: 0;
+  color: #000;
+  letter-spacing: 0.15em;
+}
+
+.logo span {
+  color: var(--primary-color);
+  letter-spacing: 0.15em;
+  font-size: larger;
+  font-weight: bolder;
+  text-transform: uppercase;
 }

@@ -62,12 +62,22 @@ function List() {
   const {
     data: players,
     isLoading,
-    isError,
+    refetch,
   } = useQuery({
     queryKey: "Players",
     queryFn: () => getPlayers(),
     staleTime: Infinity,
   });
+
+  function handleReset() {
+    setList([...Array(10)].map(() => null));
+    setActivePlayer(null);
+    setNextPlayer(true);
+    setSkips(1);
+    setSkippedPlayer(null);
+    setFinished(false);
+    refetch();
+  }
 
   useEffect(() => {
     // Set the activePlayer to the first item in the players array
@@ -197,6 +207,9 @@ function List() {
           )}
         </div>
       )}
+      <button className="reset" onClick={() => handleReset()}>
+        Reset
+      </button>
     </div>
   );
 }
