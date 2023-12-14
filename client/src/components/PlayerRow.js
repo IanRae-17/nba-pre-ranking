@@ -22,20 +22,18 @@ function PlayerRow({
       }
     >
       <div>{idx + 1}</div>
-      {player && player.img_link ? (
+      {player && (
         <img
-          src={player.img_link}
-          alt={`${player.name} Image`}
+          src={`https://cdn.nba.com/headshots/nba/latest/260x190/${player.player_id}.png`}
+          alt={`${player.player_name} Image`}
           className="player-image"
-        />
-      ) : (
-        <img
-          src={"https://cdn.nba.com/headshots/nba/latest/260x190/fallback.png"}
-          alt={`Fallback Image`}
-          className="player-image"
+          onError={(e) => {
+            e.target.src =
+              "https://cdn.nba.com/headshots/nba/latest/260x190/fallback.png";
+          }}
         />
       )}
-      <div>{player && player.name}</div>
+      <div>{player && player.player_name}</div>
       <div>
         {player && player.correct !== undefined && (
           <FontAwesomeIcon

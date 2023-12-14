@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import PlayerRow from "./PlayerRow";
 
-function List() {
+function List({ type }) {
   const [list, setList] = useState([...Array(10)].map(() => null));
   const [activePlayer, setActivePlayer] = useState(null);
   const [nextPlayer, setNextPlayer] = useState(true);
@@ -18,21 +18,29 @@ function List() {
       players &&
       !finished
     ) {
+      console.log("FINISHED", list);
       setFinished(true);
       // Get final array
       let finalPlayers = [];
       if (skippedPlayer) {
+        console.log("IN SKIPPED");
+        console.log(players[skippedPlayer]);
         finalPlayers = players.filter(
-          (player) => player._id !== players[skippedPlayer]._id
+          (player) => player.player_id !== players[skippedPlayer].player_id
         );
       } else {
+        console.log("IN NOT_SKIPPED");
         finalPlayers = players.filter((player, idx) => idx < 10);
       }
+
+      console.log(finalPlayers);
 
       // Sort array
       let sortedPlayers = finalPlayers.sort((a, b) => {
         return b.rating - a.rating;
       });
+
+      console.log(sortedPlayers);
 
       let tempList = list.map((player, idx) => {
         return {
@@ -49,7 +57,7 @@ function List() {
   const getPlayers = async (count = 11) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/randomPlayers/${count}`
+        `http://localhost:5000/randomPlayers/${count}/${type}`
       );
       return response.data;
     } catch (error) {
@@ -86,6 +94,10 @@ function List() {
     }
   }, [players]);
 
+  useEffect(() => {
+    handleReset();
+  }, [type]);
+
   function handleSkipPlayer() {
     setSkips((prevSkips) => prevSkips - 1);
 
@@ -96,9 +108,9 @@ function List() {
       // Check if the player has a name property and it matches the active player's name
       return (
         player &&
-        player.name &&
+        player.player_name &&
         players[activePlayer] &&
-        player.name === players[activePlayer].name
+        player.player_name === players[activePlayer].player_name
       );
     });
 
@@ -118,9 +130,9 @@ function List() {
       // Check if the player has a name property and it matches the active player's name
       return (
         player &&
-        player.name &&
+        player.player_name &&
         players[activePlayer] &&
-        player.name === players[activePlayer].name
+        player.player_name === players[activePlayer].player_name
       );
     });
 
@@ -185,26 +197,26 @@ function List() {
               Next Player
             </button>
           </div>
-          {players[activePlayer] && (
-            <div className="player-container">
-              {players[activePlayer].img_link ? (
-                <img
-                  src={players[activePlayer].img_link}
-                  alt={`${players[activePlayer].name} Image`}
-                  className="player-image"
-                />
-              ) : (
-                <img
-                  src={
-                    "https://cdn.nba.com/headshots/nba/latest/260x190/fallback.png"
-                  }
-                  alt={`Fallback Image`}
-                  className="player-image"
-                />
-              )}
-              <h1>{players[activePlayer].name}</h1>
-            </div>
-          )}
+
+          <div className="player-container">
+            {players[activePlayer] && (
+              <>
+                <div className="img-container">
+                  <img
+                    src={`https://cdn.nba.com/headshots/nba/latest/260x190/${players[activePlayer].player_id}.png`}
+                    alt={`${players[activePlayer].player_name} Image`}
+                    className="player-image"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://cdn.nba.com/headshots/nba/latest/260x190/fallback.png";
+                    }}
+                  />
+                </div>
+
+                <h1>{players[activePlayer].player_name}</h1>
+              </>
+            )}
+          </div>
         </div>
       )}
       <button className="reset" onClick={() => handleReset()}>

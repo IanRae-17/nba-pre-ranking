@@ -68,3 +68,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+TODO - Rankings Edition V - Stats as of "date" - Per Game - Points - Rebounds - Assists - Blocks - Steals - Stocks - Points & Assists - Totals ^^
+2K Ratings
+Top 100 avgs - players not included give 105
+Daily Challenge
+
+    Add some sort of correct spot indicator
+    Add share button
+    ------------
+    Who's NEXT?
+    1. Pascal Siakam     🟩
+    2. Moussa Diabate    🟥
+    3. Jusuf Nurkic      🟥
+    4. Jay Scrubb        🟥
+    5. Xavier Tillman    🟥
+    6. Frank Kaminsky    🟥
+    7. Moses Brown       🟥
+    8. Garrison Matthews 🟥
+    9. Jared Butler      🟥
+    10 Trevelin Queen    🟥
