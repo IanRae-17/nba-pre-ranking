@@ -1,5 +1,7 @@
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
+
 function PlayerRow({
   player,
   idx,

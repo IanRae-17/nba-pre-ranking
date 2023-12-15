@@ -38,6 +38,7 @@
   padding: 0.25em 1em;
   cursor: pointer;
   user-select: none;
+  transition: background-color 1s ease;
 }
 
 .row-container .player-image {
@@ -213,3 +214,4 @@ button:disabled {
 .selection-info {
   margin-right: .25em;
 }
+

@@ -1,10 +1,12 @@
+// React
+import { useState } from "react";
+
+// Components
 import DatabaseSelect from "./components/DatabaseSelect";
 import List from "./components/List";
 
-import { useState } from "react";
-
 function App() {
-  const [type, setType] = useState("PTS");
+  const [type, setType] = useState("PTS"); // Criteria starts on total points
 
   return (
     <>

@@ -1,7 +1,10 @@
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+// React
+import { useState, useEffect, useMemo } from "react";
+// React Query
+import { useQuery } from "@tanstack/react-query";
+// Axios
 import axios from "axios";
-
-import { useState, useEffect } from "react";
+// Components
 import PlayerRow from "./PlayerRow";
 
 function List({ type }) {
@@ -12,48 +15,7 @@ function List({ type }) {
   const [skippedPlayer, setSkippedPlayer] = useState(null);
   const [finished, setFinished] = useState(false);
 
-  useEffect(() => {
-    if (
-      list.filter((item) => item !== null).length === 10 &&
-      players &&
-      !finished
-    ) {
-      console.log("FINISHED", list);
-      setFinished(true);
-      // Get final array
-      let finalPlayers = [];
-      if (skippedPlayer) {
-        console.log("IN SKIPPED");
-        console.log(players[skippedPlayer]);
-        finalPlayers = players.filter(
-          (player) => player.player_id !== players[skippedPlayer].player_id
-        );
-      } else {
-        console.log("IN NOT_SKIPPED");
-        finalPlayers = players.filter((player, idx) => idx < 10);
-      }
-
-      console.log(finalPlayers);
-
-      // Sort array
-      let sortedPlayers = finalPlayers.sort((a, b) => {
-        return b.rating - a.rating;
-      });
-
-      console.log(sortedPlayers);
-
-      let tempList = list.map((player, idx) => {
-        return {
-          ...player,
-          correct: player.rating === sortedPlayers[idx].rating,
-        };
-      });
-
-      setList(tempList);
-    }
-  }, [list]);
-
-  // Request
+  // Request to get players, count = 11 to account for skip, changes stat rating based on type
   const getPlayers = async (count = 11) => {
     try {
       const response = await axios.get(
@@ -66,16 +28,62 @@ function List({ type }) {
     }
   };
 
-  // Queries
+  // Query for players
   const {
     data: players,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: "Players",
+    queryKey: ["Players"],
     queryFn: () => getPlayers(),
     staleTime: Infinity,
   });
+
+  // Refetch data when type changes, and reset game
+  useEffect(() => {
+    handleReset();
+  }, [type]);
+
+  // Handle Game Finished
+  useEffect(() => {
+    if (
+      list.filter((item) => item !== null).length === 10 &&
+      players &&
+      !finished
+    ) {
+      setFinished(true);
+      // Get final array
+      let finalPlayers = [];
+      if (skippedPlayer) {
+        finalPlayers = players.filter(
+          (player) => player.player_id !== players[skippedPlayer].player_id
+        );
+      } else {
+        finalPlayers = players.filter((player, idx) => idx < 10);
+      }
+
+      // Sort array
+      let sortedPlayers = finalPlayers.sort((a, b) => {
+        return b.rating - a.rating;
+      });
+
+      let tempList = list.map((player, idx) => {
+        return {
+          ...player,
+          correct: player.rating === sortedPlayers[idx].rating,
+        };
+      });
+
+      setList(tempList);
+    }
+  }, [list]);
+
+  useEffect(() => {
+    // Set the activePlayer to the first item in the players array
+    if (players && players.length > 0) {
+      setActivePlayer(0);
+    }
+  }, [players]);
 
   function handleReset() {
     setList([...Array(10)].map(() => null));
@@ -86,17 +94,6 @@ function List({ type }) {
     setFinished(false);
     refetch();
   }
-
-  useEffect(() => {
-    // Set the activePlayer to the first item in the players array
-    if (players && players.length > 0) {
-      setActivePlayer(0);
-    }
-  }, [players]);
-
-  useEffect(() => {
-    handleReset();
-  }, [type]);
 
   function handleSkipPlayer() {
     setSkips((prevSkips) => prevSkips - 1);
@@ -148,7 +145,7 @@ function List({ type }) {
 
   function handleQuickAddPlayer(idx) {
     handleAddPlayer(idx);
-    handleNextPlayer();
+    handleNextPlayer(idx);
   }
 
   function handleNextPlayer() {

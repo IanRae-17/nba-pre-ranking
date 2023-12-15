@@ -1,8 +1,8 @@
+// Assets
 import stat_headers from "../assets/stat_headers";
+
 function DatabaseSelect({ setType }) {
   function handleTypeChange(e) {
-    console.log(e);
-
     setType(
       e.target.selectedIndex > 8
         ? stat_headers[e.target.value]
@@ -13,7 +13,6 @@ function DatabaseSelect({ setType }) {
   return (
     <div className="selection-container">
       <h2 className="selection-info">Choose Criteria: </h2>
-      {console.log(Object.entries(stat_headers))}
       <select onChange={handleTypeChange}>
         <option value="" className="selection-header" disabled={true}>
           Per Game
