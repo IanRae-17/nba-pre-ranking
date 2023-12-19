@@ -92,7 +92,7 @@
   text-align: center;
 }
 
-.button-container button {
+.button-container button, .share {
   padding: 0.5em;
   border: none;
   width: 50%;
@@ -104,14 +104,15 @@
 
 .player-button,
 .reset,
-.skip {
+.skip,
+.share {
   border-bottom: 2px solid transparent !important;
 }
 
 .skip {}
 
 .player-button:hover,
-.reset:hover {
+.reset:hover, .share:hover {
   border-bottom: 2px solid var(--accent-color) !important;
 }
 
@@ -147,6 +148,13 @@ button:disabled {
   font-weight: 900;
   color: white;
   background-color: var(--primary-color);
+  flex-direction: column;
+}
+
+.final-score .share {
+  border: none;
+  background-color: white;
+  width: 50%;
 }
 
 .player-container {
@@ -169,7 +177,6 @@ button:disabled {
   width: 100%;
   text-align: center;
   color: white;
-  
 }
 
 .reset {

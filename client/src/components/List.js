@@ -14,6 +14,8 @@ function List({ type }) {
   const [skips, setSkips] = useState(1);
   const [skippedPlayer, setSkippedPlayer] = useState(null);
   const [finished, setFinished] = useState(false);
+  const [shareText, setShareText] = useState("Share");
+  const [clipboard, setClipboard] = useState(null);
 
   // Request to get players, count = 11 to account for skip, changes stat rating based on type
   const getPlayers = async (count = 11) => {
@@ -85,6 +87,25 @@ function List({ type }) {
     }
   }, [players]);
 
+  useEffect(() => {
+    if (finished) {
+      const formattedText = list
+        .map((player, idx) => {
+          const paddedIndex = (idx + 1 < 10 ? "0" : "") + (idx + 1);
+          const playerName = player.player_name
+            .split(" ")
+            .map((namePart, i) => (i === 0 ? namePart[0] + "." : namePart))
+            .join(" ")
+            .padEnd(15, " ");
+          const emoji = player.correct ? "🟩" : "🟥";
+          return `${paddedIndex}. ${playerName} ${emoji}`;
+        })
+        .join("\n");
+
+      setClipboard(`Who's NEXT?\n${type}\n${formattedText}`);
+    }
+  }, [finished]);
+
   function handleReset() {
     setList([...Array(10)].map(() => null));
     setActivePlayer(null);
@@ -153,6 +174,11 @@ function List({ type }) {
     setNextPlayer(true);
   }
 
+  function handleShare() {
+    setShareText("Copied to Clipboard");
+    navigator.clipboard.writeText(clipboard);
+  }
+
   if (isLoading) return <div>Loading...</div>;
 
   return (
@@ -177,6 +203,9 @@ function List({ type }) {
       {finished ? (
         <div className="final-score">
           {list.filter((player) => player.correct).length + " / 10"}
+          <button className="share" onClick={() => handleShare()}>
+            {shareText}
+          </button>
         </div>
       ) : (
         <div className="column right-column">
