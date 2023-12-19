@@ -6,10 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 // Components
 import PlayerRow from "./PlayerRow";
-//Assets
-import stat_headers from "../assets/stat_headers";
 
-function List({ type, label }) {
+function List({ type }) {
   const [list, setList] = useState([...Array(10)].map(() => null));
   const [activePlayer, setActivePlayer] = useState(null);
   const [nextPlayer, setNextPlayer] = useState(true);
