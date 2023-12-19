@@ -6,8 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 // Components
 import PlayerRow from "./PlayerRow";
+//Assets
+import stat_headers from "../assets/stat_headers";
 
-function List({ type }) {
+function List({ type, label }) {
   const [list, setList] = useState([...Array(10)].map(() => null));
   const [activePlayer, setActivePlayer] = useState(null);
   const [nextPlayer, setNextPlayer] = useState(true);
@@ -158,6 +160,9 @@ function List({ type }) {
   return (
     <div className="list-container">
       <div className="column left-column">
+        {/* <div className="row-container-header">
+          <div className="criteria-header">{label && label}</div>
+        </div> */}
         {list &&
           list.map((item, idx) => (
             <PlayerRow
@@ -167,6 +172,7 @@ function List({ type }) {
               handleAddPlayer={() => handleAddPlayer(idx)}
               handleQuickAddPlayer={() => handleQuickAddPlayer(idx)}
               activePlayer={players[activePlayer]}
+              finished={finished}
             />
           ))}
       </div>

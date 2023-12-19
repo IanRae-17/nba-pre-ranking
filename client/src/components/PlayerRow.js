@@ -8,6 +8,7 @@ function PlayerRow({
   handleAddPlayer,
   handleQuickAddPlayer,
   activePlayer,
+  finished,
 }) {
   return (
     <div
@@ -44,6 +45,7 @@ function PlayerRow({
           />
         )}
       </div>
+      {finished && <div>{player.rating}</div>}
     </div>
   );
 }

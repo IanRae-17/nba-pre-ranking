@@ -1,12 +1,15 @@
 // Assets
 import stat_headers from "../assets/stat_headers";
 
-function DatabaseSelect({ setType }) {
+function DatabaseSelect({ setType, setLabel }) {
   function handleTypeChange(e) {
     setType(
       e.target.selectedIndex > 8
         ? stat_headers[e.target.value]
         : stat_headers[e.target.value] + "_PG"
+    );
+    setLabel(
+      e.target.selectedIndex > 8 ? e.target.value : e.target.value + " Per Game"
     );
   }
 

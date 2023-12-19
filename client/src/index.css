@@ -28,17 +28,31 @@
   }
 }
 
-.row-container {
+.row-container, .row-container-header{
   display: grid;
-  grid-template-columns: 10% 40% 40% 10%;
-  grid-auto-rows: 70px;
+  grid-template-columns: 10% 20% 50% 10% 10%;
   color: black;
   justify-content: center;
   align-items: center;
   padding: 0.25em 1em;
   cursor: pointer;
   user-select: none;
-  transition: background-color 1s ease;
+}
+
+.row-container {
+  grid-auto-rows: 60px;
+}
+
+.row-container-header {
+  grid-auto-rows: 30px;
+  cursor: default;
+  background-color: var(--primary-color);
+  color: white;
+  grid-template-columns: 10% 20% 50% 20%;
+}
+
+.criteria-header {
+  grid-column: 4 / 5;
 }
 
 .row-container .player-image {
@@ -49,7 +63,7 @@
   background-color: white;
 }
 
-.row-container:nth-child(even) {
+.row-container:nth-child(odd) {
   background-color: rgb(227, 226, 226);
 }
 
@@ -86,11 +100,15 @@
   cursor: pointer;
 }
 
+
+
 .player-button,
 .reset,
 .skip {
   border-bottom: 2px solid transparent !important;
 }
+
+.skip {}
 
 .player-button:hover,
 .reset:hover {
