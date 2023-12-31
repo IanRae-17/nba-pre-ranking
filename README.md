@@ -4,6 +4,5 @@ Who's NEXT? is about ranking players without knowing who's coming next. Players 
 
 ## Future Features
 
-    - Change scoring to account for proximity to correct ranking, golf score, lower the better
     - Add filter for just using top 100ish players
     - When spun up, if data is more than 1 week old. Refetch.
