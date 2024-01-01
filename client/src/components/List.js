@@ -21,7 +21,7 @@ function List({ type }) {
   const getPlayers = async (count = 11) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/randomPlayers/${count}/${type}`
+        `https://nba-pre-ranking-server.vercel.app/randomPlayers/${count}/${type}`
       );
       return response.data;
     } catch (error) {
