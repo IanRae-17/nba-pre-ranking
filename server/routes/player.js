@@ -11,6 +11,7 @@ playerRoutes.get("/randomPlayers/:count?/:type?", async (req, res) => {
     const numberOfEntries = parseInt(count, 10);
 
     const db = conn.getDb();
+    console.log(db);
     const randomPlayers = await db
       .collection("player-stats")
       .aggregate([{ $sample: { size: numberOfEntries } }])
