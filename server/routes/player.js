@@ -1,11 +1,10 @@
 // routes/player.js
 const express = require("express");
-const { ObjectId } = require("mongodb");
 const conn = require("../db/conn");
 
 const playerRoutes = express.Router();
 
-playerRoutes.get("/randomPlayers/:count?/:type?", async (req, res) => {
+playerRoutes.get("/api/randomPlayers/:count?/:type?", async (req, res) => {
   try {
     const count = req.params.count || 11;
     const type = req.params.type || "PTS";
