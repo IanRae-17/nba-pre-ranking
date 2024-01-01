@@ -8,6 +8,11 @@ app.use(express.json());
 app.use(require("./routes/player"));
 // get driver connection
 const dbo = require("./db/conn");
+
+app.use("/", (req, res) => {
+  res.send("Server is Running");
+});
+
 app.listen(port, async () => {
   // perform a database connection when server starts
   await dbo.connectToServer(function (err) {
